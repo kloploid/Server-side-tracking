@@ -1,10 +1,13 @@
-import os
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import sqlite3
 from datetime import datetime
+import os
 
 app = Flask(__name__)
-DATABASE = os.getenv('DATABASE', 'visit_logs.db')
+CORS(app)  # Enable CORS for all routes
+
+DATABASE = os.getenv('DATABASE', '/data/visit_logs.db')
 
 def init_db():
     with sqlite3.connect(DATABASE) as conn:
@@ -53,3 +56,4 @@ def track_visit():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+
